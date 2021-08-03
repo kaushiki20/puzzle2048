@@ -19,8 +19,6 @@ const gameStep = (state = [], action) => {
     case ActionTypes.TRACK_GAME:
       return [...state, action.tile];
 
-    case ActionTypes.UNDO_MODE:
-      return state.pop();
     default:
       return state;
   }

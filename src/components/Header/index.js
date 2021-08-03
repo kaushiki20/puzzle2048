@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { cleanRecentAddedScore, startNewGame } from "../../actions";
-import { gameUndo } from "../../actions/tiles";
+import { gameUndo, gameRedo } from "../../actions/tiles";
 import "./header.css";
 
 const ScoreBox = ({ label, score, children }) => {
@@ -35,6 +35,7 @@ const HeaderBox = (props) => {
         Join the numbers and get to the <span className="bold">2048 tile!</span>
       </div>
       <button onClick={props.gameUndo}>UNDO</button>
+      <button onClick={props.gameRedo}>REDO</button>
     </div>
   );
 };
@@ -46,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
     // onAnimationEnd: (id) => dispatch(cleanRecentAddedScore(id)),
     startNewGame: () => dispatch(startNewGame()),
     gameUndo: () => dispatch(gameUndo()),
+    gameRedo: () => dispatch(gameRedo()),
   };
 };
 

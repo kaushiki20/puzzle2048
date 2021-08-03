@@ -21,6 +21,15 @@ const getRandomCoordinate = (tiles) => {
   return null;
 };
 
+export const gameRedo = () => (dispatch, getState) => {
+  const { gameStep } = getState();
+
+  dispatch({
+    type: ActionTypes.REDO_MODE,
+    redo: gameStep[gameStep.length - 1],
+  });
+};
+
 export const gameUndo = () => (dispatch, getState) => {
   const { gameStep } = getState();
 
