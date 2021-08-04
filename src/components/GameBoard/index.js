@@ -20,7 +20,6 @@ const BackgroundGrids = ({ size }) => {
 
 const GameBoard = (props) => (
   <div className="game-board">
-    {console.log("GAME-BOARD", props)}
     <Header />
 
     <div className="game-box">

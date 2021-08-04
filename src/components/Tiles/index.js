@@ -9,12 +9,14 @@ const TILE_GAP = 10;
 
 let Tile = (props) => {
   let { col, row } = props;
+
   let classMap = {
     tile: true,
     [`tile-${props.number}`]: true,
     "tile-new": props.newGenerated,
     "tile-merged": !!props.newMerged,
   };
+
   let classNames = Object.keys(classMap)
     .filter((cls) => !!classMap[cls])
     .join(" ");

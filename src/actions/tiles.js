@@ -51,8 +51,6 @@ export const gameReplay = () => (dispatch, getState) => {
       }, i * 2000);
     }
   }
-  dispatch(generateNewTile());
-  dispatch(generateNewTile());
 };
 
 export const generateNewTile = () => (dispatch, getState) => {
@@ -95,6 +93,7 @@ export const mergeTile = ({ row, col }) => {
 };
 
 export const resetNewMergedTileTag = ({ row, col }) => {
+  console.log("resetNewMergedTileTag", row, col);
   return {
     type: ActionTypes.RESET_NEW_MERGED_TILE_TAG,
     row,
@@ -103,6 +102,7 @@ export const resetNewMergedTileTag = ({ row, col }) => {
 };
 
 export const resetNewGeneratedTileTag = ({ row, col }) => {
+  console.log(row, col, "resetNewGeneratedTileTag");
   return {
     type: ActionTypes.RESET_NEW_GENERATED_TILE_TAG,
     row,

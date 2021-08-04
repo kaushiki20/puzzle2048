@@ -11,7 +11,8 @@ const score = (state = 0, action) => {
       return state - action.score;
     case ActionTypes.REDO_SCORE:
       return state + action.score;
-
+    case ActionTypes.REPLAY_SCORE:
+      return action.index === 0 ? action.score : state + action.score;
     default:
       return state;
   }
