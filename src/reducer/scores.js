@@ -7,6 +7,11 @@ const score = (state = 0, action) => {
       return 0;
     case ActionTypes.ADD_SCORE:
       return state + action.score;
+    case ActionTypes.UNDO_SCORE:
+      return state - action.score;
+    case ActionTypes.REDO_SCORE:
+      return state + action.score;
+
     default:
       return state;
   }

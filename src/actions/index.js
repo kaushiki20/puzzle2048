@@ -10,11 +10,15 @@ export const startNewGame = () => (dispatch, getState) => {
   dispatch(generateNewTile());
 };
 
-export const trackGame = () => (dispatch, getState) => {
+export const trackGame = (score) => (dispatch, getState) => {
   const { tiles } = getState();
+
+  const tile = JSON.parse(JSON.stringify(tiles));
+
+  tile.push(score);
   dispatch({
     type: ActionTypes.TRACK_GAME,
-    tile: tiles,
+    tile: tile,
   });
 };
 

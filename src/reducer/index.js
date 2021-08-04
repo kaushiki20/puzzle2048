@@ -14,6 +14,19 @@ const gameStatus = (state = "over", action) => {
   }
 };
 
+const mode = (state = "null", action) => {
+  switch (action.type) {
+    case ActionTypes.REPLAY_MODE:
+      return "replay";
+    case ActionTypes.UNDO_MODE:
+      return "undo";
+    case ActionTypes.REDO_MODE:
+      return "redo";
+    default:
+      return state;
+  }
+};
+
 const gameStep = (state = [], action) => {
   switch (action.type) {
     case ActionTypes.TRACK_GAME:
@@ -30,4 +43,5 @@ export default combineReducers({
   tiles,
   gameStatus,
   gameStep,
+  mode,
 });

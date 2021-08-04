@@ -10,6 +10,24 @@ export const addScore = (score) => {
   };
 };
 
+export const undoScore = () => (dispatch, getState) => {
+  const { gameStep } = getState();
+
+  dispatch({
+    type: ActionTypes.UNDO_SCORE,
+    score: gameStep[gameStep.length - 1][4],
+  });
+};
+
+export const redoScore = () => (dispatch, getState) => {
+  const { gameStep } = getState();
+
+  dispatch({
+    type: ActionTypes.REDO_SCORE,
+    score: gameStep[gameStep.length - 1][4],
+  });
+};
+
 export const cleanRecentAddedScore = (id) => {
   return {
     type: ActionTypes.CLEAN_RECENT_ADDED_SCORE,

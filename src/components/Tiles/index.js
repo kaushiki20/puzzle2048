@@ -48,8 +48,8 @@ Tile = connect(null, mapDispatchToTileProps)(Tile);
 
 const Tiles = ({ flatTiles }) => (
   <div className="tile-container">
-    {flatTiles.map((tile) => (
-      <Tile key={"tile-" + tile.uuid} {...tile}></Tile>
+    {flatTiles.map((tile, index) => (
+      <Tile key={"tile-" + tile.uuid + index} {...tile}></Tile>
     ))}
   </div>
 );

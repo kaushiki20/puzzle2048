@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { cleanRecentAddedScore, startNewGame } from "../../actions";
-import { gameUndo, gameRedo } from "../../actions/tiles";
+import { startNewGame } from "../../actions";
+import { undoScore, redoScore } from "../../actions/scores";
+import { gameUndo, gameRedo, gameReplay } from "../../actions/tiles";
 import "./header.css";
 
 const ScoreBox = ({ label, score, children }) => {
@@ -15,27 +16,26 @@ const ScoreBox = ({ label, score, children }) => {
 };
 
 const HeaderBox = (props) => {
+  const handleUndo = () => {
+    props.undoScore();
+    props.gameUndo();
+  };
+  const handleRedo = () => {
+    props.redoScore();
+    props.gameRedo();
+  };
   return (
     <div className="header-box">
       <h1 className="title">2048</h1>
-      <ScoreBox score={props.score} label="SCORE">
-        {/* {props.recentAddedScores.map((score) => (
-          <div
-            className="addition-score"
-            key={score.id}
-            onAnimationEnd={(e) => props.onAnimationEnd(score.id)}
-          >
-            +{score.score}
-          </div>
-        ))} */}
-      </ScoreBox>
+      <ScoreBox score={props.score} label="SCORE"></ScoreBox>
       <ScoreBox score={props.bestScore} label="BEST" />
       <div className="desc-txt">
         <br />
         Join the numbers and get to the <span className="bold">2048 tile!</span>
       </div>
-      <button onClick={props.gameUndo}>UNDO</button>
-      <button onClick={props.gameRedo}>REDO</button>
+      <button onClick={handleUndo}>UNDO</button>
+      <button onClick={handleRedo}>REDO</button>
+      <button onClick={props.gameReplay}> REPLAY</button>
     </div>
   );
 };
@@ -44,10 +44,12 @@ const mapStateToProps = ({ scores }) => scores;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // onAnimationEnd: (id) => dispatch(cleanRecentAddedScore(id)),
     startNewGame: () => dispatch(startNewGame()),
     gameUndo: () => dispatch(gameUndo()),
     gameRedo: () => dispatch(gameRedo()),
+    gameReplay: () => dispatch(gameReplay()),
+    undoScore: () => dispatch(undoScore()),
+    redoScore: () => dispatch(redoScore()),
   };
 };
 

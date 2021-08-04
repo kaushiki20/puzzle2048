@@ -39,6 +39,22 @@ export const gameUndo = () => (dispatch, getState) => {
   });
 };
 
+export const gameReplay = () => (dispatch, getState) => {
+  const { gameStep } = getState();
+  if (gameStep.length > 1) {
+    for (let i = 0; i < gameStep.length; i++) {
+      setTimeout(() => {
+        dispatch({
+          type: ActionTypes.REPLAY_MODE,
+          replay: gameStep[i],
+        });
+      }, i * 2000);
+    }
+  }
+  dispatch(generateNewTile());
+  dispatch(generateNewTile());
+};
+
 export const generateNewTile = () => (dispatch, getState) => {
   let { tiles } = getState();
   let coord = getRandomCoordinate(tiles);

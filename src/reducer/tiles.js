@@ -92,8 +92,13 @@ const tiles = (state = [], action) => {
 
     case ActionTypes.UNDO_MODE:
       return action.undo;
+
     case ActionTypes.REDO_MODE:
       return action.redo;
+
+    case ActionTypes.REPLAY_MODE:
+      return action.replay;
+
     case ActionTypes.MOVE_TILE:
       let tileToMove = state[action.row][action.col];
       state = mapTiles(state, action.row, action.col)((item) => null); // delete source tile

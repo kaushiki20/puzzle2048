@@ -42,9 +42,9 @@ class App extends Component {
       this.isMoving = true;
       movingPromise.then(() => {
         score && this.props.addScore(score);
+        this.props.trackGame(score);
         this.isMoving = false;
         this.props.generateNewTile();
-        this.props.trackGame();
         this.checkGameStatus();
       });
     }
@@ -129,7 +129,7 @@ const mapDispatchToProps = (dispatch) => {
     moveChessBoard: (dir) => dispatch(actions.moveChessBoard(dir)),
     addScore: (score) => dispatch(actions.addScore(score)),
     updateBestScore: (score) => dispatch(actions.updateBestScore(score)),
-    trackGame: () => dispatch(actions.trackGame()),
+    trackGame: (score) => dispatch(actions.trackGame(score)),
   };
 };
 
