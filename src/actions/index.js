@@ -5,15 +5,15 @@ export const startNewGame = () => (dispatch, getState) => {
   dispatch({
     type: ActionTypes.START_NEW_GAME,
     size: getState().size,
+    tile: getState().tiles,
   });
   dispatch(generateNewTile());
   dispatch(generateNewTile());
 };
 
-export const trackGame = (score) => (dispatch, getState) => {
+export const trackGame = () => (dispatch, getState) => {
   const { tiles } = getState();
   const tile = JSON.parse(JSON.stringify(tiles));
-  // tile.push(score);
   dispatch({
     type: ActionTypes.TRACK_GAME,
     tile: tile,

@@ -7,8 +7,10 @@ import { deepEach } from "../utils";
 
 class App extends Component {
   componentDidMount() {
-    this.props.startNewGame();
-    console.log("game start");
+    if (this.props.gameStep.length === 0) {
+      this.props.startNewGame();
+    }
+
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSwiped = this.handleSwiped.bind(this);
     window.addEventListener("keydown", this.handleKeyPress);
@@ -16,12 +18,11 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("keydown", this.handleKeyPress);
-    console.log("game unmounted");
   }
 
   handleKeyPress(ev) {
     let { key } = ev;
-    console.log("handleKeyPress");
+
     if (!this.props.gameStarted) return;
     let match = key.toLowerCase().match(/arrow(up|right|down|left)/);
     if (match) {
@@ -32,7 +33,7 @@ class App extends Component {
 
   handleSwiped(dir) {
     if (!this.props.gameStarted) return;
-    console.log("handleSwiped");
+
     this.move(dir);
     return false;
   }
@@ -40,12 +41,12 @@ class App extends Component {
   move(dir) {
     if (this.isMoving) return;
     let { movingPromise, score } = this.props.moveChessBoard(dir);
-    console.log("move", movingPromise);
+
     if (movingPromise) {
       this.isMoving = true;
       movingPromise.then(() => {
         this.props.addScore(score);
-        this.props.trackGame(score);
+        this.props.trackGame();
         this.isMoving = false;
         this.props.generateNewTile();
         this.checkGameStatus();
@@ -59,11 +60,10 @@ class App extends Component {
     // check each tile,
     // if there is any empty tile, sets movable to true
     // if there is any adjacent tile which has the same number, sets movable to true
-    console.log("isMovable", movable, tiles);
+
     deepEach(tiles, (tile) => {
       if (movable) return; // break;
       if (!tile) {
-        console.log("inside movable", tile);
         movable = true;
         return;
       }
@@ -90,7 +90,6 @@ class App extends Component {
 
   checkGameStatus() {
     if (!this.isMovable()) {
-      console.log("game status");
       // game over
       this.props.updateBestScore(this.props.score);
       this.props.setGameOver();
@@ -118,12 +117,13 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return {
     size: state.size,
     tiles: state.tiles,
     score: state.scores.score,
     gameStarted: state.gameStatus === "playing",
+    gameStep: state.gameStep,
     mode: state.mode,
   };
 };
@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch) => {
     moveChessBoard: (dir) => dispatch(actions.moveChessBoard(dir)),
     addScore: (score) => dispatch(actions.addScore(score)),
     updateBestScore: (score) => dispatch(actions.updateBestScore(score)),
-    trackGame: (score) => dispatch(actions.trackGame(score)),
+    trackGame: () => dispatch(actions.trackGame()),
   };
 };
 

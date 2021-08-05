@@ -1,8 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { startNewGame } from "../../actions";
-import { undoScore, redoScore, replayScore } from "../../actions/scores";
-import { gameUndo, gameRedo, gameReplay } from "../../actions/tiles";
 import "./header.css";
 
 const ScoreBox = ({ label, score, children }) => {
@@ -16,18 +13,6 @@ const ScoreBox = ({ label, score, children }) => {
 };
 
 const HeaderBox = (props) => {
-  const handleUndo = () => {
-    props.undoScore();
-    props.gameUndo();
-  };
-  const handleRedo = () => {
-    props.redoScore();
-    props.gameRedo();
-  };
-  const handleReplay = () => {
-    props.replayScore();
-    props.gameReplay();
-  };
   return (
     <div className="header-box">
       <h1 className="title">2048</h1>
@@ -37,25 +22,10 @@ const HeaderBox = (props) => {
         <br />
         Join the numbers and get to the <span className="bold">2048 tile!</span>
       </div>
-      <button onClick={handleUndo}>UNDO</button>
-      <button onClick={handleRedo}>REDO</button>
-      <button onClick={handleReplay}> REPLAY</button>
     </div>
   );
 };
 
 const mapStateToProps = ({ scores }) => scores;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    startNewGame: () => dispatch(startNewGame()),
-    gameUndo: () => dispatch(gameUndo()),
-    gameRedo: () => dispatch(gameRedo()),
-    gameReplay: () => dispatch(gameReplay()),
-    undoScore: () => dispatch(undoScore()),
-    redoScore: () => dispatch(redoScore()),
-    replayScore: () => dispatch(replayScore()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderBox);
+export default connect(mapStateToProps, null)(HeaderBox);

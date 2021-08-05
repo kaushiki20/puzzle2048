@@ -61,6 +61,7 @@ export const generateNewTile = () => (dispatch, getState) => {
       type: ActionTypes.GENERATE_NEW_TILE,
       number: Math.random() > 0.8 ? 4 : 2,
       uuid: v4(),
+      tiles,
       ...coord,
     });
     return true;
@@ -93,7 +94,6 @@ export const mergeTile = ({ row, col }) => {
 };
 
 export const resetNewMergedTileTag = ({ row, col }) => {
-  console.log("resetNewMergedTileTag", row, col);
   return {
     type: ActionTypes.RESET_NEW_MERGED_TILE_TAG,
     row,
@@ -102,7 +102,6 @@ export const resetNewMergedTileTag = ({ row, col }) => {
 };
 
 export const resetNewGeneratedTileTag = ({ row, col }) => {
-  console.log(row, col, "resetNewGeneratedTileTag");
   return {
     type: ActionTypes.RESET_NEW_GENERATED_TILE_TAG,
     row,

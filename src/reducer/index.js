@@ -22,6 +22,8 @@ const mode = (state = "null", action) => {
       return "undo";
     case ActionTypes.REDO_MODE:
       return "redo";
+    case ActionTypes.START_NEW_GAME:
+      return "null";
     default:
       return state;
   }
@@ -31,6 +33,8 @@ const gameStep = (state = [], action) => {
   switch (action.type) {
     case ActionTypes.TRACK_GAME:
       return [...state, action.tile];
+    case ActionTypes.START_NEW_GAME:
+      return [];
 
     default:
       return state;

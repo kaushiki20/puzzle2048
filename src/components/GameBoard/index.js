@@ -3,6 +3,7 @@ import Header from "../Header";
 import GameOver from "../GameOver";
 import Tiles from "../Tiles";
 import { connect } from "react-redux";
+import Control from "../Control";
 import "./gameBoard.css";
 
 const BackgroundGrids = ({ size }) => {
@@ -28,6 +29,7 @@ const GameBoard = (props) => (
       <Tiles />
       {props.gameOver && <GameOver />}
     </div>
+    <Control />
   </div>
 );
 
