@@ -39,8 +39,14 @@ export const gameUndo = () => (dispatch, getState) => {
   });
 };
 
+export const ReplayEnd = () => (dispatch) => {
+  dispatch({
+    type: ActionTypes.REPLAY_MODE_END,
+  });
+};
+
 export const gameReplay = () => (dispatch, getState) => {
-  const { gameStep } = getState();
+  const { gameStep, mode } = getState();
   if (gameStep.length > 1) {
     for (let i = 0; i < gameStep.length; i++) {
       setTimeout(() => {
@@ -48,6 +54,9 @@ export const gameReplay = () => (dispatch, getState) => {
           type: ActionTypes.REPLAY_MODE,
           replay: gameStep[i],
         });
+        if (gameStep.length - 1 === i) {
+          dispatch(ReplayEnd());
+        }
       }, i * 2000);
     }
   }

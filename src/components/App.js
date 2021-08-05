@@ -117,7 +117,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state);
+  console.log(state);
   return {
     size: state.size,
     tiles: state.tiles,

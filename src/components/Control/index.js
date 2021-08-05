@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { startNewGame } from "../../actions";
 import { undoScore, redoScore, replayScore } from "../../actions/scores";
 import { gameUndo, gameRedo, gameReplay } from "../../actions/tiles";
@@ -8,17 +8,19 @@ import ReplayImg from "./assets/replay.png";
 import ResetImg from "./assets/reset.png";
 import UndoImg from "./assets/undo.png";
 import "./control.css";
-import usePrevious from "../../utils/UsePrevious";
+
 const Control = (props) => {
-  const prevMode = usePrevious(props.mode);
+  const [mode, setMode] = useState(null);
 
   const handleUndo = () => {
     props.undoScore();
     props.gameUndo();
+    setMode("undo");
   };
   const handleRedo = () => {
     props.redoScore();
     props.gameRedo();
+    setMode("redo");
   };
   const handleReplay = () => {
     props.replayScore();
@@ -29,7 +31,7 @@ const Control = (props) => {
     <div className="control-box">
       <div className="controls">
         <button
-          disabled={props.gameStep.length < 1}
+          disabled={props.gameStep.length < 1 || props.mode === "replay"}
           onClick={handleUndo}
           className="control"
         >
@@ -37,7 +39,7 @@ const Control = (props) => {
           <div className="button-label">Undo</div>
         </button>
         <button
-          disabled={props.gameStep.length < 1}
+          disabled={props.gameStep.length < 1 || props.mode === "replay"}
           onClick={handleReplay}
           className="control"
         >
@@ -45,7 +47,7 @@ const Control = (props) => {
           <div className="button-label">Replay</div>
         </button>
         <button
-          disabled={!!props.gameStep.length < 1 && prevMode !== "undo"}
+          disabled={mode !== "undo" || props.mode === "replay"}
           onClick={handleRedo}
           className="control"
         >

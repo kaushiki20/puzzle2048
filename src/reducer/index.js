@@ -18,12 +18,11 @@ const mode = (state = "null", action) => {
   switch (action.type) {
     case ActionTypes.REPLAY_MODE:
       return "replay";
-    case ActionTypes.UNDO_MODE:
-      return "undo";
-    case ActionTypes.REDO_MODE:
-      return "redo";
+    case ActionTypes.REPLAY_MODE_END:
+      return null;
     case ActionTypes.START_NEW_GAME:
-      return "null";
+    case ActionTypes.GAME_OVER:
+      return null;
     default:
       return state;
   }
