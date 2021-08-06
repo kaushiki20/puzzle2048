@@ -11,15 +11,6 @@ export const startNewGame = () => (dispatch, getState) => {
   dispatch(generateNewTile());
 };
 
-export const trackGame = () => (dispatch, getState) => {
-  const { tiles } = getState();
-  const tile = JSON.parse(JSON.stringify(tiles));
-  dispatch({
-    type: ActionTypes.TRACK_GAME,
-    tile: tile,
-  });
-};
-
 export const setGameOver = () => {
   return {
     type: ActionTypes.GAME_OVER,

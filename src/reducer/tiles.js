@@ -66,7 +66,7 @@ const tile = (state = null, action) => {
   }
 };
 
-const tiles = (state = [], action) => {
+export const tiles = (state = [], action) => {
   switch (action.type) {
     case ActionTypes.START_NEW_GAME:
       return getInitialTiles(action.size);
@@ -88,6 +88,7 @@ const tiles = (state = [], action) => {
         action.row,
         action.col
       )((item) => tile(item, { ...action, tileToMerge }));
+
       return mapTiles(state, action.destRow, action.destCol)((item) => null);
 
     case ActionTypes.UNDO_MODE:
@@ -102,6 +103,7 @@ const tiles = (state = [], action) => {
     case ActionTypes.MOVE_TILE:
       let tileToMove = state[action.row][action.col];
       state = mapTiles(state, action.row, action.col)((item) => null); // delete source tile
+
       return mapTiles(
         state,
         action.destRow,
@@ -119,4 +121,15 @@ const tiles = (state = [], action) => {
   }
 };
 
-export default tiles;
+export const gameStep = (state = [], action) => {
+  switch (action.type) {
+    case ActionTypes.TRACK_GAME:
+      return [...state, action.tile];
+
+    case ActionTypes.START_NEW_GAME:
+      return [];
+
+    default:
+      return state;
+  }
+};

@@ -31,7 +31,7 @@ const Control = (props) => {
     <div className="control-box">
       <div className="controls">
         <button
-          disabled={props.gameStep.length < 1 || props.mode === "replay"}
+          disabled={props.gameStep.length < 2 || props.mode === "replay"}
           onClick={handleUndo}
           className="control"
         >
@@ -39,7 +39,7 @@ const Control = (props) => {
           <div className="button-label">Undo</div>
         </button>
         <button
-          disabled={props.gameStep.length < 1 || props.mode === "replay"}
+          disabled={props.gameStep.length < 2 || props.mode === "replay"}
           onClick={handleReplay}
           className="control"
         >

@@ -1,7 +1,7 @@
 import * as ActionTypes from "../actions/action-types";
 import { combineReducers } from "redux";
 import scores from "./scores";
-import tiles from "./tiles";
+import { tiles, gameStep } from "./tiles";
 
 const gameStatus = (state = "over", action) => {
   switch (action.type) {
@@ -28,23 +28,11 @@ const mode = (state = "null", action) => {
   }
 };
 
-const gameStep = (state = [], action) => {
-  switch (action.type) {
-    case ActionTypes.TRACK_GAME:
-      return [...state, action.tile];
-    case ActionTypes.START_NEW_GAME:
-      return [];
-
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   size: () => 4,
   scores,
   tiles,
-  gameStatus,
   gameStep,
+  gameStatus,
   mode,
 });

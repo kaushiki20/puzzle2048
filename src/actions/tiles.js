@@ -21,6 +21,16 @@ const getRandomCoordinate = (tiles) => {
   return null;
 };
 
+export const trackGame = (tile) => (dispatch, getState) => {
+  const { tiles } = getState();
+
+  const getTileAsParam = tile ? tile : tiles;
+  dispatch({
+    type: ActionTypes.TRACK_GAME,
+    tile: getTileAsParam,
+  });
+};
+
 export const gameRedo = () => (dispatch, getState) => {
   const { gameStep } = getState();
 
@@ -46,7 +56,7 @@ export const ReplayEnd = () => (dispatch) => {
 };
 
 export const gameReplay = () => (dispatch, getState) => {
-  const { gameStep, mode } = getState();
+  const { gameStep } = getState();
   if (gameStep.length > 1) {
     for (let i = 0; i < gameStep.length; i++) {
       setTimeout(() => {
@@ -65,6 +75,7 @@ export const gameReplay = () => (dispatch, getState) => {
 export const generateNewTile = () => (dispatch, getState) => {
   let { tiles } = getState();
   let coord = getRandomCoordinate(tiles);
+
   if (coord) {
     dispatch({
       type: ActionTypes.GENERATE_NEW_TILE,

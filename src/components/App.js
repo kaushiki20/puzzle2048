@@ -6,6 +6,10 @@ import * as actions from "../actions";
 import { deepEach } from "../utils";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { prevTile: [] };
+  }
   componentDidMount() {
     if (this.props.gameStep.length === 0) {
       this.props.startNewGame();
@@ -19,7 +23,12 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener("keydown", this.handleKeyPress);
   }
-
+  componentDidUpdate(prevProps) {
+    if (this.props.gameStep.length < 1) {
+      this.props.trackGame(prevProps.tiles);
+      this.props.addScore(0);
+    }
+  }
   handleKeyPress(ev) {
     let { key } = ev;
 
@@ -27,6 +36,7 @@ class App extends Component {
     let match = key.toLowerCase().match(/arrow(up|right|down|left)/);
     if (match) {
       this.move(match[1]);
+
       ev.preventDefault();
     }
   }
@@ -41,7 +51,6 @@ class App extends Component {
   move(dir) {
     if (this.isMoving) return;
     let { movingPromise, score } = this.props.moveChessBoard(dir);
-
     if (movingPromise) {
       this.isMoving = true;
       movingPromise.then(() => {
@@ -102,6 +111,7 @@ class App extends Component {
         let propName = `on-swiped-${dir}`.replace(/-(\w)/g, ($0, $1) =>
           $1.toUpperCase()
         );
+
         options[propName] = this.handleSwiped.bind(this, dir);
         return options;
       },
@@ -116,7 +126,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, prevProps) => {
   console.log(state);
   return {
     size: state.size,
@@ -125,6 +135,7 @@ const mapStateToProps = (state) => {
     gameStarted: state.gameStatus === "playing",
     gameStep: state.gameStep,
     mode: state.mode,
+    prevTile: prevProps,
   };
 };
 

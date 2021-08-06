@@ -48,13 +48,19 @@ const mapDispatchToTileProps = (dispatch, ownProps) => {
 
 Tile = connect(null, mapDispatchToTileProps)(Tile);
 
-const Tiles = ({ flatTiles }) => (
-  <div className="tile-container">
-    {flatTiles.map((tile, index) => (
-      <Tile key={"tile-" + tile.uuid + index} {...tile}></Tile>
-    ))}
-  </div>
-);
+const Tiles = ({ flatTiles }) => {
+  // useEffect(() => {
+  //   trackGame(tile);
+  //   addScore(0);
+  // }, []);
+  return (
+    <div className="tile-container">
+      {flatTiles.map((tile, index) => (
+        <Tile key={"tile-" + tile.uuid + index} {...tile}></Tile>
+      ))}
+    </div>
+  );
+};
 
 const flattenTiles = (tiles) => {
   let flatTiles = [];
@@ -70,10 +76,18 @@ const flattenTiles = (tiles) => {
   return flatTiles.sort((tile1, tile2) => (tile1.uuid > tile2.uuid ? 1 : -1));
 };
 
-const mapStateToProps = ({ tiles }) => {
+const mapStateToProps = (state) => {
   return {
-    flatTiles: flattenTiles(tiles),
+    flatTiles: flattenTiles(state.tiles),
+    tile: state.tiles,
   };
 };
 
-export default connect(mapStateToProps)(Tiles);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // trackGame: (tile) => dispatch(actions.trackGame(tile)),
+    // addScore: (score) => dispatch(actions.addScore(score)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tiles);
