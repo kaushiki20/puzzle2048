@@ -32,11 +32,12 @@ export const trackGame = (tile) => (dispatch, getState) => {
 };
 
 export const gameRedo = () => (dispatch, getState) => {
-  const { gameStep } = getState();
-
+  const { gameStep, scores } = getState();
+  const { recentAddedScores } = scores;
   dispatch({
     type: ActionTypes.REDO_MODE,
     redo: gameStep[gameStep.length - 1],
+    score: recentAddedScores[recentAddedScores.length - 1].score,
   });
 };
 
@@ -55,11 +56,12 @@ export const newMove = () => (dispatch, getState) => {
 };
 
 export const gameUndo = () => (dispatch, getState) => {
-  const { gameStep } = getState();
-
+  const { gameStep, scores } = getState();
+  const { recentAddedScores } = scores;
   dispatch({
     type: ActionTypes.UNDO_MODE,
     undo: gameStep[gameStep.length - 2],
+    score: recentAddedScores[recentAddedScores.length - 1].score,
   });
 };
 
@@ -70,13 +72,16 @@ export const ReplayEnd = () => (dispatch) => {
 };
 
 export const gameReplay = () => (dispatch, getState) => {
-  const { gameStep } = getState();
+  const { gameStep, scores } = getState();
+  const { recentAddedScores } = scores;
   if (gameStep.length > 1) {
     for (let i = 0; i < gameStep.length; i++) {
       setTimeout(() => {
         dispatch({
           type: ActionTypes.REPLAY_MODE,
           replay: gameStep[i],
+          index: i,
+          score: recentAddedScores[i].score,
         });
         if (gameStep.length - 1 === i) {
           dispatch(ReplayEnd());

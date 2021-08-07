@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { startNewGame } from "../../actions";
-import { undoScore, redoScore, replayScore } from "../../actions/scores";
+
 import { gameUndo, gameRedo, gameReplay } from "../../actions/tiles";
 import { connect } from "react-redux";
 import RedoImg from "./assets/redo.png";
@@ -10,20 +10,13 @@ import UndoImg from "./assets/undo.png";
 import "./control.css";
 
 const Control = (props) => {
-  const [mode, setMode] = useState(null);
-
   const handleUndo = () => {
-    props.undoScore();
     props.gameUndo();
-    setMode("undo");
   };
   const handleRedo = () => {
-    props.redoScore();
     props.gameRedo();
-    setMode("redo");
   };
   const handleReplay = () => {
-    props.replayScore();
     props.gameReplay();
   };
 
@@ -47,7 +40,7 @@ const Control = (props) => {
           <div className="button-label">Replay</div>
         </button>
         <button
-          disabled={mode !== "undo" || props.mode === "replay"}
+          disabled={props.mode !== "undo" || props.mode === "replay"}
           onClick={handleRedo}
           className="control"
         >
@@ -76,9 +69,6 @@ const mapDispatchToProps = (dispatch) => {
     gameUndo: () => dispatch(gameUndo()),
     gameRedo: () => dispatch(gameRedo()),
     gameReplay: () => dispatch(gameReplay()),
-    undoScore: () => dispatch(undoScore()),
-    redoScore: () => dispatch(redoScore()),
-    replayScore: () => dispatch(replayScore()),
   };
 };
 

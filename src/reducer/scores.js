@@ -7,11 +7,11 @@ const score = (state = 0, action) => {
       return 0;
     case ActionTypes.ADD_SCORE:
       return state + action.score;
-    case ActionTypes.UNDO_SCORE:
+    case ActionTypes.UNDO_MODE:
       return state - action.score;
-    case ActionTypes.REDO_SCORE:
+    case ActionTypes.REDO_MODE:
       return state + action.score;
-    case ActionTypes.REPLAY_SCORE:
+    case ActionTypes.REPLAY_MODE:
       return action.index === 0 ? action.score : state + action.score;
     default:
       return state;
