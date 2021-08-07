@@ -125,7 +125,8 @@ export const gameStep = (state = [], action) => {
   switch (action.type) {
     case ActionTypes.TRACK_GAME:
       return [...state, action.tile];
-
+    case ActionTypes.NEW_MOVE:
+      return action.newGameStep;
     case ActionTypes.START_NEW_GAME:
       return [];
 

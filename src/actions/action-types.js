@@ -22,3 +22,4 @@ export const REPLAY_SCORE = "REPLAY_SCORE";
 export const TRACK_GAME = "TRACK_GAME";
 export const RESET_MODE = "RESET_MODE";
 export const REPLAY_MODE_END = "REPLAY_MODE_END";
+export const NEW_MOVE = "NEW_MOVE";

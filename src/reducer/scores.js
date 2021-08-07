@@ -25,7 +25,8 @@ const recentAddedScores = (state = [], action) => {
 
     case ActionTypes.ADD_SCORE:
       return [...state, { score: action.score, id: action.id }];
-
+    case ActionTypes.NEW_MOVE:
+      return action.recentAddedScores;
     case ActionTypes.CLEAN_RECENT_ADDED_SCORE:
       return state.filter((score) => score.id !== action.id);
 

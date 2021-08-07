@@ -36,7 +36,9 @@ class App extends Component {
     let match = key.toLowerCase().match(/arrow(up|right|down|left)/);
     if (match) {
       this.move(match[1]);
-
+      if (this.props.mode === "undo") {
+        this.props.newMove();
+      }
       ev.preventDefault();
     }
   }
@@ -45,6 +47,9 @@ class App extends Component {
     if (!this.props.gameStarted) return;
 
     this.move(dir);
+    if (this.props.mode === "undo") {
+      this.props.newMove();
+    }
     return false;
   }
 
@@ -148,6 +153,7 @@ const mapDispatchToProps = (dispatch) => {
     addScore: (score) => dispatch(actions.addScore(score)),
     updateBestScore: (score) => dispatch(actions.updateBestScore(score)),
     trackGame: () => dispatch(actions.trackGame()),
+    newMove: () => dispatch(actions.newMove()),
   };
 };
 

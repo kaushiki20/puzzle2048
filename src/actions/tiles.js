@@ -1,7 +1,7 @@
 import * as ActionTypes from "./action-types";
 import { v4 } from "node-uuid";
 import flatten from "lodash.flatten";
-import { sleep } from "../utils";
+import { delayPromise } from "../utils";
 
 const getRandomCoordinate = (tiles) => {
   let emptyTiles = flatten(
@@ -37,6 +37,20 @@ export const gameRedo = () => (dispatch, getState) => {
   dispatch({
     type: ActionTypes.REDO_MODE,
     redo: gameStep[gameStep.length - 1],
+  });
+};
+
+export const newMove = () => (dispatch, getState) => {
+  const { gameStep, scores } = getState();
+  const { recentAddedScores } = scores;
+
+  dispatch({
+    type: ActionTypes.NEW_MOVE,
+    newGameStep: gameStep.splice(0, gameStep.length - 1),
+    recentAddedScores: recentAddedScores.splice(
+      0,
+      recentAddedScores.length - 1
+    ),
   });
 };
 
@@ -89,16 +103,15 @@ export const generateNewTile = () => (dispatch, getState) => {
   return false;
 };
 
-export const moveTile =
-  (payload /*={row, col, destRow, destCol}*/) => (dispatch) => {
-    dispatch({
-      type: ActionTypes.MOVE_TILE,
-      ...payload,
-    });
-    return sleep(80).then(() => payload);
-  };
+export const moveTile = (payload) => (dispatch) => {
+  dispatch({
+    type: ActionTypes.MOVE_TILE,
+    ...payload,
+  });
+  return delayPromise(80).then(() => payload);
+};
 
-export const preMergeTile = (payload /*={row, col, destRow, destCol}*/) => {
+export const preMergeTile = (payload) => {
   return {
     type: ActionTypes.PRE_MERGE_TILE,
     ...payload,
