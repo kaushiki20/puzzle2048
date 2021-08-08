@@ -60,10 +60,11 @@ class App extends Component {
       this.isMoving = true;
       movingPromise.then(() => {
         this.props.addScore(score);
-        this.props.trackGame();
+
         this.isMoving = false;
         this.props.generateNewTile();
         this.checkGameStatus();
+        this.props.trackGame();
       });
     }
   }
