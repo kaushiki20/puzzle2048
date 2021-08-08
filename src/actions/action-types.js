@@ -14,11 +14,8 @@ export const RESET_NEW_MERGED_TILE_TAG = "RESET_NEW_MERGED_TILE_TAG";
 export const RESET_NEW_GENERATED_TILE_TAG = "RESET_NEW_GENERATED_TILE_TAG";
 
 export const UNDO_MODE = "UNDO_MODE";
-export const UNDO_SCORE = "UNDO_SCORE";
 export const REDO_MODE = "REDO_MODE";
-export const REDO_SCORE = "REDO_SCORE";
 export const REPLAY_MODE = "REPLAY_MODE";
-export const REPLAY_SCORE = "REPLAY_SCORE";
 export const TRACK_GAME = "TRACK_GAME";
 export const RESET_MODE = "RESET_MODE";
 export const REPLAY_MODE_END = "REPLAY_MODE_END";
