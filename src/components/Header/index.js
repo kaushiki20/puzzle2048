@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "./header.css";
 
@@ -10,6 +11,11 @@ const ScoreBox = ({ label, score, children }) => {
       {children}
     </div>
   );
+};
+
+ScoreBox.propTypes = {
+  label: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const HeaderBox = (props) => {
@@ -24,6 +30,11 @@ const HeaderBox = (props) => {
       </div>
     </div>
   );
+};
+
+HeaderBox.propTypes = {
+  bestScore: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ scores }) => scores;

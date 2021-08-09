@@ -13,20 +13,11 @@ import { PersistGate } from "redux-persist/integration/react";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
 
-// const preloadedState = {};
 const persistConfig = {
   key: "root",
   storage,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// try {
-//   let bestScore = localStorage.getItem("bestScore");
-//   if (bestScore) {
-//     bestScore = JSON.parse(bestScore);
-//     preloadedState.scores = { bestScore };
-//   }
-// } catch (e) {}
 
 const store = createStore(
   persistedReducer,

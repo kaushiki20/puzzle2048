@@ -2,7 +2,6 @@ export const START_NEW_GAME = "START_NEW_GAME";
 export const GAME_OVER = "GAME_OVER";
 
 export const ADD_SCORE = "ADD_SCORE";
-export const CLEAN_RECENT_ADDED_SCORE = "CLEAN_RECENT_ADDED_SCORE";
 export const UPDATE_BEST_SCORE = "UPDATE_BEST_SCORE";
 
 export const GENERATE_NEW_TILE = "GENERATE_NEW_TILE";

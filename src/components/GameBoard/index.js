@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../Header";
+import PropTypes from "prop-types";
 import GameOver from "../GameOver";
 import Tiles from "../Tiles";
 import { connect } from "react-redux";
@@ -18,6 +19,9 @@ const BackgroundGrids = ({ size }) => {
 
   return <div className="grid-container">{grids}</div>;
 };
+BackgroundGrids.propTypes = {
+  size: PropTypes.number.isRequired,
+};
 
 const GameBoard = (props) => (
   <div className="game-board">
@@ -33,6 +37,10 @@ const GameBoard = (props) => (
   </div>
 );
 
+GameBoard.propTypes = {
+  size: PropTypes.number.isRequired,
+  gameOver: PropTypes.bool.isRequired,
+};
 const mapStateToProps = (state) => {
   return {
     size: state.size,

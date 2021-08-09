@@ -4,12 +4,29 @@ import Swipeable from "react-swipeable";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import { deepEach } from "../utils";
-
+import PropTypes from "prop-types";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { prevTile: [] };
   }
+  static propTypes = {
+    startNewGame: PropTypes.func.isRequired,
+    setGameOver: PropTypes.func.isRequired,
+    generateNewTile: PropTypes.func.isRequired,
+    moveChessBoard: PropTypes.func.isRequired,
+    addScore: PropTypes.func.isRequired,
+    updateBestScore: PropTypes.func.isRequired,
+    gameStarted: PropTypes.bool.isRequired,
+    size: PropTypes.number.isRequired,
+    tiles: PropTypes.array.isRequired,
+    score: PropTypes.number.isRequired,
+    prevTile: PropTypes.array.isRequired,
+    mode: PropTypes.string.isRequired,
+    gameStep: PropTypes.array.isRequired,
+    trackGame: PropTypes.func.isRequired,
+    newMove: PropTypes.func.isRequired,
+  };
   componentDidMount() {
     if (this.props.gameStep.length === 0) {
       this.props.startNewGame();
@@ -75,7 +92,6 @@ class App extends Component {
     // check each tile,
     // if there is any empty tile, sets movable to true
     // if there is any adjacent tile which has the same number, sets movable to true
-
     deepEach(tiles, (tile) => {
       if (movable) return; // break;
       if (!tile) {

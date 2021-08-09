@@ -1,8 +1,32 @@
 import React from "react";
 import * as actions from "../../actions/index";
-import flatten from "lodash.flatten";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { flattenTiles } from "../../utils/index";
 import "./tiles.css";
+
+const Tiles = ({ flatTiles }) => {
+  return (
+    <div className="tile-container">
+      {flatTiles.map((tile, index) => (
+        <Tile key={"tile-" + tile.uuid + index} {...tile}></Tile>
+      ))}
+    </div>
+  );
+};
+
+Tiles.propTypes = {
+  flatTiles: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    flatTiles: flattenTiles(state.tiles),
+    tile: state.tiles,
+  };
+};
+
+export default connect(mapStateToProps, null)(Tiles);
 
 const TILE_WIDTH = 100;
 const TILE_GAP = 10;
@@ -32,10 +56,18 @@ let Tile = (props) => {
   );
 };
 
+Tile.propTypes = {
+  col: PropTypes.number.isRequired,
+  row: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
+  newGenerated: PropTypes.bool.isRequired,
+  newMerged: PropTypes.bool.isRequired,
+  onAnimationEnd: PropTypes.func.isRequired,
+};
+
 const mapDispatchToTileProps = (dispatch, ownProps) => {
   return {
     onAnimationEnd({ animationName }) {
-      // designed in css file
       let { col, row } = ownProps;
       if (animationName === "a-tile-new") {
         dispatch(actions.resetNewGeneratedTileTag({ col, row }));
@@ -47,36 +79,3 @@ const mapDispatchToTileProps = (dispatch, ownProps) => {
 };
 
 Tile = connect(null, mapDispatchToTileProps)(Tile);
-
-const Tiles = ({ flatTiles }) => {
-  return (
-    <div className="tile-container">
-      {flatTiles.map((tile, index) => (
-        <Tile key={"tile-" + tile.uuid + index} {...tile}></Tile>
-      ))}
-    </div>
-  );
-};
-
-const flattenTiles = (tiles) => {
-  let flatTiles = [];
-  flatten(tiles)
-    .filter((tile) => !!tile)
-    .forEach((tile) => {
-      flatTiles.push(tile);
-      if (tile.tileToMerge) {
-        flatTiles.push(tile.tileToMerge);
-      }
-    });
-
-  return flatTiles.sort((tile1, tile2) => (tile1.uuid > tile2.uuid ? 1 : -1));
-};
-
-const mapStateToProps = (state) => {
-  return {
-    flatTiles: flattenTiles(state.tiles),
-    tile: state.tiles,
-  };
-};
-
-export default connect(mapStateToProps, null)(Tiles);

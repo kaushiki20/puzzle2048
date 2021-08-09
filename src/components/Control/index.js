@@ -1,6 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { startNewGame } from "../../actions";
-
 import { gameUndo, gameRedo, gameReplay } from "../../actions/tiles";
 import { connect } from "react-redux";
 import RedoImg from "./assets/redo.png";
@@ -10,6 +10,18 @@ import UndoImg from "./assets/undo.png";
 import "./control.css";
 
 const Control = (props) => {
+  let undoCondition =
+    props.gameStep.length < 2 ||
+    props.mode === "replay" ||
+    props.gameStatus === "over";
+
+  let replayCondition =
+    props.gameStep.length < 2 ||
+    props.mode === "replay" ||
+    props.gameStatus === "over";
+
+  let redoCondition = props.mode !== "undo" || props.mode === "replay";
+
   const handleUndo = () => {
     props.gameUndo();
   };
@@ -24,11 +36,7 @@ const Control = (props) => {
     <div className="control-box">
       <div className="controls">
         <button
-          disabled={
-            props.gameStep.length < 2 ||
-            props.mode === "replay" ||
-            props.gameStatus === "over"
-          }
+          disabled={undoCondition}
           onClick={handleUndo}
           className="control"
         >
@@ -36,11 +44,7 @@ const Control = (props) => {
           <div className="button-label">Undo</div>
         </button>
         <button
-          disabled={
-            props.gameStep.length < 2 ||
-            props.mode === "replay" ||
-            props.gameStatus === "over"
-          }
+          disabled={replayCondition}
           onClick={handleReplay}
           className="control"
         >
@@ -48,7 +52,7 @@ const Control = (props) => {
           <div className="button-label">Replay</div>
         </button>
         <button
-          disabled={props.mode !== "undo" || props.mode === "replay"}
+          disabled={redoCondition}
           onClick={handleRedo}
           className="control"
         >
@@ -62,6 +66,16 @@ const Control = (props) => {
       </div>
     </div>
   );
+};
+
+Control.propTypes = {
+  gameStep: PropTypes.array.isRequired,
+  mode: PropTypes.string.isRequired,
+  gameStatus: PropTypes.string.isRequired,
+  startNewGame: PropTypes.func.isRequired,
+  gameUndo: PropTypes.func.isRequired,
+  gameRedo: PropTypes.func.isRequired,
+  gameReplay: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

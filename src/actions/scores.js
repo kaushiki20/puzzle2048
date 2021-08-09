@@ -9,13 +9,6 @@ export const addScore = (score) => {
   };
 };
 
-export const cleanRecentAddedScore = (id) => {
-  return {
-    type: ActionTypes.CLEAN_RECENT_ADDED_SCORE,
-    id,
-  };
-};
-
 export const updateBestScore = (score) => (dispatch, getState) => {
   let {
     scores: { bestScore },
