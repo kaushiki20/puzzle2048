@@ -6,10 +6,6 @@ import * as actions from "../actions";
 import { deepEach } from "../utils";
 import PropTypes from "prop-types";
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { prevTile: [] };
-  }
   static propTypes = {
     startNewGame: PropTypes.func.isRequired,
     setGameOver: PropTypes.func.isRequired,
@@ -154,7 +150,6 @@ const mapStateToProps = (state, prevProps) => {
     gameStarted: state.gameStatus === "playing",
     gameStep: state.gameStep,
     mode: state.mode,
-    prevTile: prevProps,
   };
 };
 
