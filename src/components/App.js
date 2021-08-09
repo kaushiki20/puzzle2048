@@ -21,8 +21,6 @@ class App extends Component {
     size: PropTypes.number.isRequired,
     tiles: PropTypes.array.isRequired,
     score: PropTypes.number.isRequired,
-    prevTile: PropTypes.array.isRequired,
-    mode: PropTypes.string.isRequired,
     gameStep: PropTypes.array.isRequired,
     trackGame: PropTypes.func.isRequired,
     newMove: PropTypes.func.isRequired,
@@ -149,7 +147,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, prevProps) => {
-  console.log(state);
   return {
     size: state.size,
     tiles: state.tiles,

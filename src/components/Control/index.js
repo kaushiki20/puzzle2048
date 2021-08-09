@@ -70,7 +70,6 @@ const Control = (props) => {
 
 Control.propTypes = {
   gameStep: PropTypes.array.isRequired,
-  mode: PropTypes.string.isRequired,
   gameStatus: PropTypes.string.isRequired,
   startNewGame: PropTypes.func.isRequired,
   gameUndo: PropTypes.func.isRequired,
