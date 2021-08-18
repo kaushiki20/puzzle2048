@@ -47,6 +47,7 @@ let Tile = (props) => {
   let x = col * (TILE_WIDTH + TILE_GAP) + "px";
   let y = row * (TILE_WIDTH + TILE_GAP) + "px";
   let style = { transform: `translate3d(${x}, ${y}, 0)` };
+
   return (
     <div className={classNames} style={style}>
       <div className="tile-inner" onAnimationEnd={props.onAnimationEnd}>
